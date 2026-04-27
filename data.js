@@ -292,3 +292,18 @@ const KANA_ROWS = {
     hiragana: ['모음','K행','S행','T행','N행','H행','M행','Y행','R행','W행+ん'],
     katakana: ['모음','K행','S행','T행','N행','H행','M행','Y행','R행','W행+ン']
 };
+
+// ===== Korean Pronunciation Mapping =====
+const KR_PRON = {
+    'a':'아','i':'이','u':'우','e':'에','o':'오',
+    'ka':'카','ki':'키','ku':'쿠','ke':'케','ko':'코',
+    'sa':'사','shi':'시','su':'스','se':'세','so':'소',
+    'ta':'타','chi':'치','tsu':'츠','te':'테','to':'토',
+    'na':'나','ni':'니','nu':'누','ne':'네','no':'노',
+    'ha':'하','hi':'히','fu':'후','he':'헤','ho':'호',
+    'ma':'마','mi':'미','mu':'무','me':'메','mo':'모',
+    'ya':'야','yu':'유','yo':'요',
+    'ra':'라','ri':'리','ru':'루','re':'레','ro':'로',
+    'wa':'와','wo':'오/wo','n':'ㄴ'
+};
+function krPron(romaji) { return KR_PRON[romaji] || romaji; }

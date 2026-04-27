@@ -202,7 +202,7 @@ function setupKanaChart(type) {
                 const learned = (type === 'hiragana' ? state.learnedHiragana : state.learnedKatakana).has(item.char);
                 html += `<div class="kana-cell ${learned ? 'learned' : ''}" data-type="${type}" data-idx="${idx}">
                     <span class="kana-main">${item.char}</span>
-                    <span class="kana-romaji">${item.romaji}</span>
+                    <span class="kana-romaji">${krPron(item.romaji)} (${item.romaji})</span>
                 </div>`;
                 idx++;
             }
@@ -221,7 +221,7 @@ function setupKanaChart(type) {
             cell.classList.add('learned');
             state.todayWords++;
             state.totalXP += 2;
-            showToast(`${d.char} (${d.romaji}) - ${d.example}`, 'success');
+            showToast(`${d.char} = ${krPron(d.romaji)} (${d.romaji}) - ${d.example}`, 'success');
             updateUI();
         });
     });
@@ -289,7 +289,7 @@ function updateFlashcard(type) {
     const idx = type === 'hiragana' ? state.hiraganaIdx : state.katakanaIdx;
     const item = data[idx];
     document.getElementById(type + 'FlashChar').textContent = item.char;
-    document.getElementById(type + 'FlashReading').textContent = item.romaji;
+    document.getElementById(type + 'FlashReading').textContent = krPron(item.romaji) + ' (' + item.romaji + ')';
     document.getElementById(type + 'FlashExample').textContent = item.example;
     document.getElementById(type + 'Counter').textContent = `${idx + 1} / ${data.length}`;
     // Reset flip
@@ -323,14 +323,14 @@ function setupPracticeType(type) {
         state.todayTotal++;
 
         if (input === correct) {
-            fb.textContent = '정답! ✨ ' + data[currentIdx].example;
+            fb.textContent = '정답! ✨ ' + krPron(correct) + ' (' + correct + ') - ' + data[currentIdx].example;
             fb.className = 'practice-feedback correct';
             if (type === 'hiragana') { state.hiraganaCorrect++; state.learnedHiragana.add(data[currentIdx].char); }
             else { state.katakanaCorrect++; state.learnedKatakana.add(data[currentIdx].char); }
             state.todayQuiz++;
             state.totalXP += 5;
         } else {
-            fb.textContent = `오답! 정답: ${correct} (${data[currentIdx].example})`;
+            fb.textContent = `오답! 정답: ${krPron(correct)} (${correct}) - ${data[currentIdx].example}`;
             fb.className = 'practice-feedback wrong';
             if (type === 'hiragana') state.hiraganaWrong++;
             else state.katakanaWrong++;
