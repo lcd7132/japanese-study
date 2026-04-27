@@ -211,9 +211,9 @@ const GRAMMAR = [
         pattern:'[명사] です',
         desc:'가장 기본적인 정중한 서술문. 명사 뒤에 붙여 "~입니다"라는 의미.',
         examples:[
-            {jp:'わたしはがくせいです。',kr:'저는 학생입니다.'},
-            {jp:'これはほんです。',kr:'이것은 책입니다.'},
-            {jp:'きょうはにちようびです。',kr:'오늘은 일요일입니다.'}
+            {jp:'わたしはがくせいです。',reading:'watashi wa gakusei desu',kr:'저는 학생입니다.'},
+            {jp:'これはほんです。',reading:'kore wa hon desu',kr:'이것은 책입니다.'},
+            {jp:'きょうはにちようびです。',reading:'kyou wa nichiyoubi desu',kr:'오늘은 일요일입니다.'}
         ]
     },
     {
@@ -221,9 +221,9 @@ const GRAMMAR = [
         pattern:'[주어] は [서술어] です',
         desc:'주제를 나타내는 조사 は(wa). 문장의 주제를 표시.',
         examples:[
-            {jp:'たなかさんはせんせいです。',kr:'타나카씨는 선생님입니다.'},
-            {jp:'にほんごはたのしいです。',kr:'일본어는 즐겁습니다.'},
-            {jp:'あのひとはだれですか。',kr:'저 사람은 누구입니까?'}
+            {jp:'たなかさんはせんせいです。',reading:'tanaka san wa sensei desu',kr:'타나카씨는 선생님입니다.'},
+            {jp:'にほんごはたのしいです。',reading:'nihongo wa tanoshii desu',kr:'일본어는 즐겁습니다.'},
+            {jp:'あのひとはだれですか。',reading:'ano hito wa dare desu ka',kr:'저 사람은 누구입니까?'}
         ]
     },
     {
@@ -231,9 +231,9 @@ const GRAMMAR = [
         pattern:'[목적어] を [동사]',
         desc:'목적어를 나타내는 조사. 동작의 대상을 표시.',
         examples:[
-            {jp:'ごはんをたべます。',kr:'밥을 먹습니다.'},
-            {jp:'みずをのみます。',kr:'물을 마십니다.'},
-            {jp:'テレビをみます。',kr:'TV를 봅니다.'}
+            {jp:'ごはんをたべます。',reading:'gohan o tabemasu',kr:'밥을 먹습니다.'},
+            {jp:'みずをのみます。',reading:'mizu o nomimasu',kr:'물을 마십니다.'},
+            {jp:'テレビをみます。',reading:'terebi o mimasu',kr:'TV를 봅니다.'}
         ]
     },
     {
@@ -241,9 +241,9 @@ const GRAMMAR = [
         pattern:'[장소/시간] に [동사]',
         desc:'장소(존재·도착)나 시간을 나타내는 조사.',
         examples:[
-            {jp:'がっこうにいきます。',kr:'학교에 갑니다.'},
-            {jp:'しちじにおきます。',kr:'7시에 일어납니다.'},
-            {jp:'いえにいます。',kr:'집에 있습니다.'}
+            {jp:'がっこうにいきます。',reading:'gakkou ni ikimasu',kr:'학교에 갑니다.'},
+            {jp:'しちじにおきます。',reading:'shichiji ni okimasu',kr:'7시에 일어납니다.'},
+            {jp:'いえにいます。',reading:'ie ni imasu',kr:'집에 있습니다.'}
         ]
     },
     {
@@ -251,9 +251,9 @@ const GRAMMAR = [
         pattern:'[동사 어간] ます',
         desc:'동사의 정중한 표현. 일상 대화에서 자주 사용.',
         examples:[
-            {jp:'まいにちべんきょうします。',kr:'매일 공부합니다.'},
-            {jp:'あしたともだちにあいます。',kr:'내일 친구를 만납니다.'},
-            {jp:'にほんごをはなします。',kr:'일본어를 말합니다.'}
+            {jp:'まいにちべんきょうします。',reading:'mainichi benkyou shimasu',kr:'매일 공부합니다.'},
+            {jp:'あしたともだちにあいます。',reading:'ashita tomodachi ni aimasu',kr:'내일 친구를 만납니다.'},
+            {jp:'にほんごをはなします。',reading:'nihongo o hanashimasu',kr:'일본어를 말합니다.'}
         ]
     },
     {
@@ -261,9 +261,9 @@ const GRAMMAR = [
         pattern:'[동사 어간] ません',
         desc:'동사 정중형의 부정. "~하지 않습니다".',
         examples:[
-            {jp:'にくをたべません。',kr:'고기를 먹지 않습니다.'},
-            {jp:'おさけをのみません。',kr:'술을 마시지 않습니다.'},
-            {jp:'きょうはいきません。',kr:'오늘은 가지 않습니다.'}
+            {jp:'にくをたべません。',reading:'niku o tabemasen',kr:'고기를 먹지 않습니다.'},
+            {jp:'おさけをのみません。',reading:'osake o nomimasen',kr:'술을 마시지 않습니다.'},
+            {jp:'きょうはいきません。',reading:'kyou wa ikimasen',kr:'오늘은 가지 않습니다.'}
         ]
     },
     {
@@ -271,9 +271,9 @@ const GRAMMAR = [
         pattern:'[동사 어간] ました',
         desc:'동사의 과거 정중형. "~했습니다".',
         examples:[
-            {jp:'きのうえいがをみました。',kr:'어제 영화를 봤습니다.'},
-            {jp:'にほんにいきました。',kr:'일본에 갔습니다.'},
-            {jp:'おいしいりょうりをたべました。',kr:'맛있는 요리를 먹었습니다.'}
+            {jp:'きのうえいがをみました。',reading:'kinou eiga o mimashita',kr:'어제 영화를 봤습니다.'},
+            {jp:'にほんにいきました。',reading:'nihon ni ikimashita',kr:'일본에 갔습니다.'},
+            {jp:'おいしいりょうりをたべました。',reading:'oishii ryouri o tabemashita',kr:'맛있는 요리를 먹었습니다.'}
         ]
     },
     {
@@ -281,9 +281,9 @@ const GRAMMAR = [
         pattern:'[동사 어간] たい',
         desc:'희망을 나타내는 표현. 자신의 바람을 말할 때 사용.',
         examples:[
-            {jp:'にほんにいきたいです。',kr:'일본에 가고 싶습니다.'},
-            {jp:'すしをたべたいです。',kr:'초밥을 먹고 싶습니다.'},
-            {jp:'にほんごをはなしたいです。',kr:'일본어를 말하고 싶습니다.'}
+            {jp:'にほんにいきたいです。',reading:'nihon ni ikitai desu',kr:'일본에 가고 싶습니다.'},
+            {jp:'すしをたべたいです。',reading:'sushi o tabetai desu',kr:'초밥을 먹고 싶습니다.'},
+            {jp:'にほんごをはなしたいです。',reading:'nihongo o hanashitai desu',kr:'일본어를 말하고 싶습니다.'}
         ]
     }
 ];

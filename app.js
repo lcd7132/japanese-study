@@ -399,6 +399,7 @@ function setupGrammar() {
                 ${g.examples.map(ex => `
                     <div class="grammar-example-item">
                         <div class="ex-jp">${ex.jp}</div>
+                        ${ex.reading ? `<div class="ex-reading" style="font-size: 0.85rem; color: var(--accent-2); margin-bottom: 2px;">${romajiToKr(ex.reading)} (${ex.reading})</div>` : ''}
                         <div class="ex-kr">${ex.kr}</div>
                     </div>
                 `).join('')}
