@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>毎日日本語 - 매일 일본어 학습</title>
+    <meta name="description" content="하루 20분, 매일 일본어를 공부하세요. 히라가나, 카타카나, 단어, 문법을 체계적으로 학습할 수 있습니다.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-char" style="--delay: 0s; --x: 10%; --y: 20%">あ</div>
+        <div class="floating-char" style="--delay: 2s; --x: 80%; --y: 15%">カ</div>
+        <div class="floating-char" style="--delay: 4s; --x: 30%; --y: 70%">日</div>
+        <div class="floating-char" style="--delay: 6s; --x: 70%; --y: 60%">本</div>
+        <div class="floating-char" style="--delay: 8s; --x: 50%; --y: 40%">語</div>
+        <div class="floating-char" style="--delay: 1s; --x: 90%; --y: 80%">学</div>
+        <div class="floating-char" style="--delay: 3s; --x: 20%; --y: 90%">ア</div>
+        <div class="floating-char" style="--delay: 5s; --x: 60%; --y: 30%">き</div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🗾</span>
+                <h1>毎日日本語</h1>
+                <span class="logo-sub">매일 일본어</span>
+            </div>
+            <div class="header-stats">
+                <div class="stat-pill" id="streakPill">
+                    <span class="stat-icon">🔥</span>
+                    <span class="stat-value" id="streakCount">0</span>
+                    <span class="stat-label">연속</span>
+                </div>
+                <div class="stat-pill" id="xpPill">
+                    <span class="stat-icon">⭐</span>
+                    <span class="stat-value" id="totalXP">0</span>
+                    <span class="stat-label">XP</span>
+                </div>
+                <div class="timer-pill" id="timerPill">
+                    <span class="stat-icon">⏱️</span>
+                    <span class="stat-value" id="timerDisplay">20:00</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-bar" id="navBar">
+        <button class="nav-btn active" data-section="dashboard" id="navDashboard">
+            <span class="nav-icon">📊</span>
+            <span class="nav-text">대시보드</span>
+        </button>
+        <button class="nav-btn" data-section="hiragana" id="navHiragana">
+            <span class="nav-icon">あ</span>
+            <span class="nav-text">히라가나</span>
+        </button>
+        <button class="nav-btn" data-section="katakana" id="navKatakana">
+            <span class="nav-icon">ア</span>
+            <span class="nav-text">카타카나</span>
+        </button>
+        <button class="nav-btn" data-section="vocabulary" id="navVocabulary">
+            <span class="nav-icon">📚</span>
+            <span class="nav-text">단어</span>
+        </button>
+        <button class="nav-btn" data-section="grammar" id="navGrammar">
+            <span class="nav-icon">📝</span>
+            <span class="nav-text">문법</span>
+        </button>
+        <button class="nav-btn" data-section="quiz" id="navQuiz">
+            <span class="nav-icon">🎯</span>
+            <span class="nav-text">퀴즈</span>
+        </button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+
+        <!-- Dashboard Section -->
+        <section class="section active" id="sectionDashboard">
+            <div class="section-header">
+                <h2>오늘의 학습</h2>
+                <p class="section-sub" id="todayDate"></p>
+            </div>
+
+            <!-- Daily Progress -->
+            <div class="progress-card glass-card">
+                <div class="progress-header">
+                    <h3>오늘의 목표 (20분)</h3>
+                    <button class="btn-start-timer" id="btnStartTimer">
+                        <span id="timerBtnText">학습 시작</span>
+                    </button>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="dailyProgress">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0%</span>
+                </div>
+                <div class="daily-stats">
+                    <div class="daily-stat">
+                        <span class="daily-stat-value" id="todayMinutes">0</span>
+                        <span class="daily-stat-label">학습 시간(분)</span>
+                    </div>
+                    <div class="daily-stat">
+                        <span class="daily-stat-value" id="todayWords">0</span>
+                        <span class="daily-stat-label">학습한 단어</span>
+                    </div>
+                    <div class="daily-stat">
+                        <span class="daily-stat-value" id="todayQuiz">0</span>
+                        <span class="daily-stat-label">퀴즈 정답</span>
+                    </div>
+                    <div class="daily-stat">
+                        <span class="daily-stat-value" id="todayAccuracy">0%</span>
+                        <span class="daily-stat-label">정답률</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekly Calendar -->
+            <div class="calendar-card glass-card">
+                <h3>이번 주 학습</h3>
+                <div class="week-grid" id="weekGrid"></div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <button class="action-card glass-card" id="quickHiragana" data-target="hiragana">
+                    <div class="action-icon">あ</div>
+                    <h4>히라가나 연습</h4>
+                    <p>기본 46자 학습</p>
+                    <div class="action-progress">
+                        <div class="mini-progress">
+                            <div class="mini-fill" id="hiraganaProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </button>
+                <button class="action-card glass-card" id="quickKatakana" data-target="katakana">
+                    <div class="action-icon">ア</div>
+                    <h4>카타카나 연습</h4>
+                    <p>기본 46자 학습</p>
+                    <div class="action-progress">
+                        <div class="mini-progress">
+                            <div class="mini-fill" id="katakanaProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </button>
+                <button class="action-card glass-card" id="quickVocab" data-target="vocabulary">
+                    <div class="action-icon">📚</div>
+                    <h4>오늘의 단어</h4>
+                    <p>JLPT N5 필수 단어</p>
+                    <div class="action-progress">
+                        <div class="mini-progress">
+                            <div class="mini-fill" id="vocabProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </button>
+                <button class="action-card glass-card" id="quickQuiz" data-target="quiz">
+                    <div class="action-icon">🎯</div>
+                    <h4>오늘의 퀴즈</h4>
+                    <p>복습 테스트</p>
+                    <div class="action-progress">
+                        <div class="mini-progress">
+                            <div class="mini-fill" id="quizProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <!-- Hiragana Section -->
+        <section class="section" id="sectionHiragana">
+            <div class="section-header">
+                <h2>히라가나 (ひらがな)</h2>
+                <p class="section-sub">일본어의 기본 문자 46자를 마스터하세요</p>
+            </div>
+
+            <!-- Mode Selector -->
+            <div class="mode-selector">
+                <button class="mode-btn active" data-mode="chart" id="hiraganaChart">문자표</button>
+                <button class="mode-btn" data-mode="flashcard" id="hiraganaFlashcard">플래시카드</button>
+                <button class="mode-btn" data-mode="practice" id="hiraganaPractice">연습</button>
+            </div>
+
+            <!-- Chart Mode -->
+            <div class="mode-content active" id="hiraganaChartContent">
+                <div class="kana-chart glass-card" id="hiraganaChartGrid"></div>
+            </div>
+
+            <!-- Flashcard Mode -->
+            <div class="mode-content" id="hiraganaFlashcardContent">
+                <div class="flashcard-container">
+                    <div class="flashcard glass-card" id="hiraganaFlashcard">
+                        <div class="flashcard-inner" id="hiraganaFlashcardInner">
+                            <div class="flashcard-front">
+                                <span class="flashcard-char" id="hiraganaFlashChar">あ</span>
+                                <span class="flashcard-hint">클릭하여 뒤집기</span>
+                            </div>
+                            <div class="flashcard-back">
+                                <span class="flashcard-reading" id="hiraganaFlashReading">a</span>
+                                <span class="flashcard-example" id="hiraganaFlashExample">あめ (ame) - 비</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button class="fc-btn" id="hiraganaPrev">◀ 이전</button>
+                        <span class="fc-counter" id="hiraganaCounter">1 / 46</span>
+                        <button class="fc-btn" id="hiraganaNext">다음 ▶</button>
+                    </div>
+                    <div class="flashcard-rating">
+                        <button class="rating-btn hard" id="hiraganaHard">어려움 😓</button>
+                        <button class="rating-btn ok" id="hiraganaOk">보통 🤔</button>
+                        <button class="rating-btn easy" id="hiraganaEasy">쉬움 😊</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Practice Mode -->
+            <div class="mode-content" id="hiraganaPracticeContent">
+                <div class="practice-container glass-card">
+                    <div class="practice-prompt">
+                        <span class="practice-char" id="hiraganaPracticeChar">あ</span>
+                    </div>
+                    <div class="practice-input-group">
+                        <input type="text" class="practice-input" id="hiraganaPracticeInput" placeholder="로마자 입력 (예: a)" autocomplete="off">
+                        <button class="practice-submit" id="hiraganaPracticeSubmit">확인</button>
+                    </div>
+                    <div class="practice-feedback" id="hiraganaPracticeFeedback"></div>
+                    <div class="practice-score">
+                        <span>정답: <strong id="hiraganaCorrect">0</strong></span>
+                        <span>오답: <strong id="hiraganaWrong">0</strong></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Katakana Section -->
+        <section class="section" id="sectionKatakana">
+            <div class="section-header">
+                <h2>카타카나 (カタカナ)</h2>
+                <p class="section-sub">외래어 표기에 사용되는 46자를 마스터하세요</p>
+            </div>
+
+            <div class="mode-selector">
+                <button class="mode-btn active" data-mode="chart" id="katakanaChartBtn">문자표</button>
+                <button class="mode-btn" data-mode="flashcard" id="katakanaFlashcardBtn">플래시카드</button>
+                <button class="mode-btn" data-mode="practice" id="katakanaPracticeBtn">연습</button>
+            </div>
+
+            <div class="mode-content active" id="katakanaChartContent">
+                <div class="kana-chart glass-card" id="katakanaChartGrid"></div>
+            </div>
+
+            <div class="mode-content" id="katakanaFlashcardContent">
+                <div class="flashcard-container">
+                    <div class="flashcard glass-card" id="katakanaFlashcardCard">
+                        <div class="flashcard-inner" id="katakanaFlashcardInner">
+                            <div class="flashcard-front">
+                                <span class="flashcard-char" id="katakanaFlashChar">ア</span>
+                                <span class="flashcard-hint">클릭하여 뒤집기</span>
+                            </div>
+                            <div class="flashcard-back">
+                                <span class="flashcard-reading" id="katakanaFlashReading">a</span>
+                                <span class="flashcard-example" id="katakanaFlashExample">アメリカ (amerika) - 미국</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button class="fc-btn" id="katakanaPrev">◀ 이전</button>
+                        <span class="fc-counter" id="katakanaCounter">1 / 46</span>
+                        <button class="fc-btn" id="katakanaNext">다음 ▶</button>
+                    </div>
+                    <div class="flashcard-rating">
+                        <button class="rating-btn hard" id="katakanaHard">어려움 😓</button>
+                        <button class="rating-btn ok" id="katakanaOk">보통 🤔</button>
+                        <button class="rating-btn easy" id="katakanaEasy">쉬움 😊</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mode-content" id="katakanaPracticeContent">
+                <div class="practice-container glass-card">
+                    <div class="practice-prompt">
+                        <span class="practice-char" id="katakanaPracticeChar">ア</span>
+                    </div>
+                    <div class="practice-input-group">
+                        <input type="text" class="practice-input" id="katakanaPracticeInput" placeholder="로마자 입력 (예: a)" autocomplete="off">
+                        <button class="practice-submit" id="katakanaPracticeSubmit">확인</button>
+                    </div>
+                    <div class="practice-feedback" id="katakanaPracticeFeedback"></div>
+                    <div class="practice-score">
+                        <span>정답: <strong id="katakanaCorrect">0</strong></span>
+                        <span>오답: <strong id="katakanaWrong">0</strong></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vocabulary Section -->
+        <section class="section" id="sectionVocabulary">
+            <div class="section-header">
+                <h2>단어 학습 (単語)</h2>
+                <p class="section-sub">JLPT N5 필수 단어를 학습하세요</p>
+            </div>
+
+            <div class="vocab-category-selector">
+                <button class="category-btn active" data-category="greetings" id="catGreetings">인사말</button>
+                <button class="category-btn" data-category="numbers" id="catNumbers">숫자</button>
+                <button class="category-btn" data-category="family" id="catFamily">가족</button>
+                <button class="category-btn" data-category="food" id="catFood">음식</button>
+                <button class="category-btn" data-category="time" id="catTime">시간</button>
+                <button class="category-btn" data-category="verbs" id="catVerbs">동사</button>
+                <button class="category-btn" data-category="adjectives" id="catAdjectives">형용사</button>
+                <button class="category-btn" data-category="daily" id="catDaily">일상</button>
+            </div>
+
+            <div class="vocab-cards" id="vocabCards"></div>
+        </section>
+
+        <!-- Grammar Section -->
+        <section class="section" id="sectionGrammar">
+            <div class="section-header">
+                <h2>기초 문법 (文法)</h2>
+                <p class="section-sub">일본어 기초 문법을 단계별로 학습하세요</p>
+            </div>
+
+            <div class="grammar-lessons" id="grammarLessons"></div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section class="section" id="sectionQuiz">
+            <div class="section-header">
+                <h2>퀴즈 (クイズ)</h2>
+                <p class="section-sub">학습한 내용을 테스트해보세요</p>
+            </div>
+
+            <div class="quiz-setup glass-card" id="quizSetup">
+                <h3>퀴즈 설정</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <label>유형</label>
+                        <select id="quizType">
+                            <option value="hiragana">히라가나</option>
+                            <option value="katakana">카타카나</option>
+                            <option value="vocabulary">단어</option>
+                            <option value="mixed">종합</option>
+                        </select>
+                    </div>
+                    <div class="quiz-option">
+                        <label>문제 수</label>
+                        <select id="quizCount">
+                            <option value="5">5문제</option>
+                            <option value="10" selected>10문제</option>
+                            <option value="20">20문제</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-start-quiz" id="btnStartQuiz">퀴즈 시작 🚀</button>
+            </div>
+
+            <div class="quiz-area" id="quizArea" style="display: none;">
+                <div class="quiz-header">
+                    <div class="quiz-progress-bar">
+                        <div class="quiz-progress-fill" id="quizProgressFill"></div>
+                    </div>
+                    <span class="quiz-counter" id="quizCounter">1 / 10</span>
+                </div>
+                <div class="quiz-question glass-card" id="quizQuestion">
+                    <div class="quiz-prompt" id="quizPrompt"></div>
+                    <div class="quiz-choices" id="quizChoices"></div>
+                </div>
+            </div>
+
+            <div class="quiz-result glass-card" id="quizResult" style="display: none;">
+                <div class="result-icon" id="resultIcon">🎉</div>
+                <h3 id="resultTitle">훌륭해요!</h3>
+                <div class="result-score">
+                    <span class="result-number" id="resultScore">0</span>
+                    <span class="result-total" id="resultTotal">/ 10</span>
+                </div>
+                <div class="result-details" id="resultDetails"></div>
+                <button class="btn-retry" id="btnRetryQuiz">다시 도전 🔄</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
