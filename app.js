@@ -364,7 +364,7 @@ function renderVocab(category) {
     container.innerHTML = words.map((w, i) => `
         <div class="vocab-card" id="vocab-${category}-${i}">
             <div class="vocab-jp">${w.jp}</div>
-            <div class="vocab-reading">${w.reading}</div>
+            <div class="vocab-reading">${romajiToKr(w.reading)} (${w.reading})</div>
             <div class="vocab-kr">${w.kr}</div>
             <div class="vocab-example">
                 <strong>예문:</strong> ${w.ex}
@@ -443,10 +443,10 @@ function startQuiz() {
 function generateQuizQuestions(type, count) {
     let pool = [];
     if (type === 'hiragana' || type === 'mixed') {
-        HIRAGANA.forEach(h => pool.push({ prompt: h.char, answer: h.romaji, type: 'hiragana' }));
+        HIRAGANA.forEach(h => pool.push({ prompt: h.char, answer: h.romaji, krAnswer: krPron(h.romaji), type: 'hiragana' }));
     }
     if (type === 'katakana' || type === 'mixed') {
-        KATAKANA.forEach(k => pool.push({ prompt: k.char, answer: k.romaji, type: 'katakana' }));
+        KATAKANA.forEach(k => pool.push({ prompt: k.char, answer: k.romaji, krAnswer: krPron(k.romaji), type: 'katakana' }));
     }
     if (type === 'vocabulary' || type === 'mixed') {
         Object.values(VOCABULARY).flat().forEach(v => pool.push({ prompt: v.jp, answer: v.kr, type: 'vocab' }));
@@ -455,8 +455,8 @@ function generateQuizQuestions(type, count) {
     pool.sort(() => Math.random() - 0.5);
     return pool.slice(0, count).map(q => {
         // Generate wrong choices
-        const wrongs = pool.filter(p => p.answer !== q.answer).sort(() => Math.random() - 0.5).slice(0, 3).map(p => p.answer);
-        const choices = [q.answer, ...wrongs].sort(() => Math.random() - 0.5);
+        const wrongs = pool.filter(p => p.answer !== q.answer).sort(() => Math.random() - 0.5).slice(0, 3);
+        const choices = [q, ...wrongs].sort(() => Math.random() - 0.5);
         return { ...q, choices };
     });
 }
@@ -472,11 +472,14 @@ function showQuizQuestion() {
     document.getElementById('quizPrompt').textContent = q.prompt;
 
     const choicesEl = document.getElementById('quizChoices');
-    choicesEl.innerHTML = q.choices.map((c, i) => `<button class="quiz-choice" id="quizChoice${i}">${c}</button>`).join('');
+    choicesEl.innerHTML = q.choices.map((c, i) => {
+        const displayText = (c.type === 'hiragana' || c.type === 'katakana') ? `${c.krAnswer} (${c.answer})` : c.answer;
+        return `<button class="quiz-choice" id="quizChoice${i}" data-answer="${c.answer}">${displayText}</button>`;
+    }).join('');
 
     choicesEl.querySelectorAll('.quiz-choice').forEach(btn => {
         btn.addEventListener('click', () => {
-            const isCorrect = btn.textContent === q.answer;
+            const isCorrect = btn.dataset.answer === q.answer;
             state.todayTotal++;
             if (isCorrect) {
                 btn.classList.add('correct');
@@ -486,7 +489,7 @@ function showQuizQuestion() {
             } else {
                 btn.classList.add('wrong');
                 choicesEl.querySelectorAll('.quiz-choice').forEach(b => {
-                    if (b.textContent === q.answer) b.classList.add('correct');
+                    if (b.dataset.answer === q.answer) b.classList.add('correct');
                 });
             }
             choicesEl.querySelectorAll('.quiz-choice').forEach(b => b.style.pointerEvents = 'none');
